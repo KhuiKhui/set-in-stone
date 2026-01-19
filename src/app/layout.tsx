@@ -13,7 +13,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="text-fg bg-[url(/dark-stone-bg.png)] bg-cover antialiased">
+        {children}
+      </body>
     </html>
   );
 }

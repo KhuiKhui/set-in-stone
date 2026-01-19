@@ -1,9 +1,10 @@
 import Button from '@/components/Button/Button';
+import Spreadsheet from '@/components/Spreadsheet/Spreadsheet';
 
 export default function Home() {
   return (
-    <div className="p-8">
-      <Button text="Click me" />
+    <div className="h-screen w-screen p-8">
+      <Spreadsheet />
     </div>
   );
 }
