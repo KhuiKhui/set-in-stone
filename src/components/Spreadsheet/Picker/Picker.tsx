@@ -3,6 +3,7 @@
 import { colorPickerAtom, colorPressedAtom } from '@/store';
 import { useAtom } from 'jotai';
 import cn from '@/utils/cn';
+import { click } from '@/utils/audio';
 
 interface PickerProps extends React.ComponentPropsWithRef<'div'> {
   category: string;
@@ -36,6 +37,7 @@ function Picker({
     >
       <button
         onClick={() => {
+          click.play();
           setColorPressed((colorPressed) => {
             colorPressed = [false, false, false, false];
             colorPressed[index] = true;
@@ -47,11 +49,11 @@ function Picker({
           });
         }}
         className={cn(
-          'block size-full min-w-24 -translate-y-0.5 cursor-pointer rounded-full p-4 font-bold',
+          'block size-full min-w-24 -translate-y-1.5 cursor-pointer rounded-full px-4 py-2 font-bold',
           'size-full transition-transform ease-in-out',
           {
-            '-translate-y-2': colorPressed[index],
-            'hover:-translate-y-1': !colorPressed[index],
+            '-translate-y-0.5': colorPressed[index],
+            'hover:-translate-y-2': !colorPressed[index],
             'bg-sleep-base hover:bg-sleep-bright': color[index] === 'sleep',
             'bg-games-base hover:bg-games-bright': color[index] === 'games',
             'bg-study-base hover:bg-study-bright': color[index] === 'study',

@@ -1,7 +1,7 @@
 'use client';
 import cn from '@/utils/cn';
 import { useState } from 'react';
-import { Howl, Howler } from 'howler';
+import { click } from '@/utils/audio';
 import { useAtom, useAtomValue } from 'jotai';
 import { colorPickerAtom, colorPressedAtom, gridAtom } from '@/store';
 
@@ -20,15 +20,9 @@ function Cell({ className, row, col, ...inputs }: CellProps) {
     if (colorsPressed[i]) color = colors[i];
   }
 
-  const click = new Howl({
-    src: ['/click.mp3'],
-    volume: 0.3,
-  });
-
   return (
     <button
       onClick={() => {
-        console.log(row, col);
         if (isPressed)
           setGrid((grid: string[][]) => {
             grid[row][col] = '';

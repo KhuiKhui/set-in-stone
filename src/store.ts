@@ -1,5 +1,7 @@
 import { atom } from 'jotai';
 
+export const hrefAtom = atom('/');
+
 export const colorPressedAtom = atom([
   true,
   false,
