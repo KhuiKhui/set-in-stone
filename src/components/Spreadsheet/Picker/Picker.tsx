@@ -3,7 +3,6 @@
 import { colorPickerAtom, colorPressedAtom } from '@/store';
 import { useAtom } from 'jotai';
 import cn from '@/utils/cn';
-import { useState } from 'react';
 
 interface PickerProps extends React.ComponentPropsWithRef<'div'> {
   category: string;
@@ -26,6 +25,9 @@ function Picker({
           'bg-sleep-dim': color[index] === 'sleep',
           'bg-games-dim': color[index] === 'games',
           'bg-study-dim': color[index] === 'study',
+          'bg-hangout-dim': color[index] === 'hangout',
+          'bg-exercise-dim': color[index] === 'exercise',
+          'bg-eat-dim': color[index] === 'eat',
           'bg-others-dim': color[index] === 'others',
         },
         className,
@@ -53,6 +55,11 @@ function Picker({
             'bg-sleep-base hover:bg-sleep-bright': color[index] === 'sleep',
             'bg-games-base hover:bg-games-bright': color[index] === 'games',
             'bg-study-base hover:bg-study-bright': color[index] === 'study',
+            'bg-hangout-base hover:bg-hangout-bright':
+              color[index] === 'hangout',
+            'bg-exercise-base hover:bg-exercise-bright':
+              color[index] === 'exercise',
+            'bg-eat-base hover:bg-eat-bright': color[index] === 'eat',
             'bg-others-base hover:bg-others-bright': color[index] === 'others',
           },
         )}

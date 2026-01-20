@@ -11,7 +11,7 @@ function Spreadsheet({
     <div
       className={cn(
         'block size-full translate-y-1.5 p-4 font-bold',
-        'grid grid-cols-25 grid-rows-32 gap-0.5 overflow-auto bg-transparent',
+        'grid grid-cols-25 grid-rows-32 gap-[0.5px] overflow-auto bg-transparent',
         className,
       )}
       {...inputs}
@@ -31,7 +31,7 @@ function Spreadsheet({
             {index % 25 == 0 ? (
               <div key={`${index} date`}>{`${index / 25 + 1}/1/26`}</div>
             ) : (
-              <Cell row={index % 31} col={(index % 25) - 1} />
+              <Cell row={Math.floor(index / 25) + 1} col={(index % 25) - 1} />
             )}
           </div>
         );

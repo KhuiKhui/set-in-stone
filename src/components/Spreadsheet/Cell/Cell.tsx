@@ -28,6 +28,7 @@ function Cell({ className, row, col, ...inputs }: CellProps) {
   return (
     <button
       onClick={() => {
+        console.log(row, col);
         if (isPressed)
           setGrid((grid: string[][]) => {
             grid[row][col] = '';
@@ -53,8 +54,20 @@ function Cell({ className, row, col, ...inputs }: CellProps) {
     >
       <span
         className={cn(
-          'bg-base border-dark block size-full -translate-y-1.5 cursor-pointer rounded-lg border-t-2 p-4 font-bold',
+          'bg-base border-dark block size-full -translate-y-1.5 cursor-pointer rounded-lg border-x border-t-2 p-4 font-bold',
           'size-full transition-transform ease-in-out',
+          {
+            // FUNCTIONS!!!!
+            'bg-bright':
+              row > -(1 / 36) * col ** 2 + (2 / 3) * col + 12 ||
+              row < (1 / 36) * col ** 2 - (2 / 3) * col + 9,
+            'bg-dim':
+              row > -(1 / 36) * col ** 2 + (2 / 3) * col + 18 ||
+              row < (1 / 36) * col ** 2 - (2 / 3) * col + 7,
+            'bg-dark':
+              row > -(1 / 36) * col ** 2 + (2 / 3) * col + 25 ||
+              row < (1 / 36) * col ** 2 - (2 / 3) * col + 3,
+          },
           {
             '-translate-y-1': isPressed,
             'hover:-translate-y-2': !isPressed,
@@ -67,6 +80,15 @@ function Cell({ className, row, col, ...inputs }: CellProps) {
             'hover:bg-sleep-bright': !isPressed && color === 'sleep',
             'bg-sleep-base hover:bg-sleep-dim':
               isPressed && grid[row][col] === 'sleep',
+            'hover:bg-hangout-bright': !isPressed && color === 'hangout',
+            'bg-hangout-base hover:bg-hangout-dim':
+              isPressed && grid[row][col] === 'hangout',
+            'hover:bg-exercise-bright': !isPressed && color === 'exercise',
+            'bg-exercise-base hover:bg-exercise-dim':
+              isPressed && grid[row][col] === 'exercise',
+            'hover:bg-eat-bright': !isPressed && color === 'eat',
+            'bg-eat-base hover:bg-eat-dim':
+              isPressed && grid[row][col] === 'eat',
             'hover:bg-others-bright': !isPressed && color === 'others',
             'bg-others-base hover:bg-others-dim':
               isPressed && grid[row][col] === 'others',
