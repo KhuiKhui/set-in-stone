@@ -12,6 +12,24 @@
   --color-dim: #7f7f7f;
   --color-bg: #595959;
   --color-fg: #f2f2f2;
+  --color-dark: #3e3e3e;
+  --color-accent: #5b3a31;
+
+  --color-sleep-base: #0e0e0e;
+  --color-sleep-bright: #1b1b1b;
+  --color-sleep-dim: black;
+
+  --color-games-base: #ec2513;
+  --color-games-bright: #ef4e40;
+  --color-games-dim: #cd2011;
+
+  --color-study-base: #00922a;
+  --color-study-bright: #00ad32;
+  --color-study-dim: #007020;
+
+  --color-others-base: #741b47;
+  --color-others-bright: #8d2156;
+  --color-others-dim: #5b1538;
 
   --font-base: 'Schoolbell', cursive;
   --default-font-family: var(--font-base);
