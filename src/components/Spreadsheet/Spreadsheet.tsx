@@ -1,12 +1,16 @@
-// interface SpreadsheetProps extends React.ComponentPropsWithRef<'div'> {}
-
+'use client';
 import cn from '@/utils/cn';
 import Cell from './Cell/Cell';
+import { useAtomValue } from 'jotai';
+import { monthAtom, yearAtom } from '@/store';
+import { months } from '@/constants/months';
 
 function Spreadsheet({
   className,
   ...inputs
 }: React.ComponentPropsWithRef<'div'>) {
+  const month = useAtomValue(monthAtom);
+  const year = useAtomValue(yearAtom);
   return (
     <div
       className={cn(
@@ -25,11 +29,15 @@ function Spreadsheet({
           >{`${index}:00`}</div>
         );
       })}
-      {Array.from({ length: 25 * 31 }).map((_: unknown, index: number) => {
+      {Array.from({
+        length: 25 * (year % 4 === 0 && month === 1 ? 29 : months[month].days),
+      }).map((_: unknown, index: number) => {
         return (
           <div key={'cell' + index}>
             {index % 25 == 0 ? (
-              <div key={`${index} date`}>{`${index / 25 + 1}/1/26`}</div>
+              <div
+                key={`${index} date`}
+              >{`${index / 25 + 1}/${months[month].num}/${year % 100}`}</div>
             ) : (
               <Cell row={Math.floor(index / 25)} col={(index % 25) - 1} />
             )}

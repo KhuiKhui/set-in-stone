@@ -22,6 +22,9 @@ export const colorPickerAtom = atom([
   'others',
 ]);
 
-export const gridAtom = atom<string[][]>(
+export const gridAtom = atom<string[][][]>([
   Array.from({ length: 31 }, () => Array.from({ length: 24 }, () => '')),
-);
+]);
+
+export const monthAtom = atom<number>(0);
+export const yearAtom = atom<number>(2026);
