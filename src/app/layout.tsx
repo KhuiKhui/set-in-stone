@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import Header from '@/components/Header/Header';
 
 export const metadata: Metadata = {
   title: 'Set in Stone',
@@ -13,7 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="text-fg bg-bg flex flex-col p-5 antialiased">
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
