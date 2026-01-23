@@ -14,7 +14,7 @@ function Spreadsheet({
   return (
     <div
       className={cn(
-        'block size-full translate-y-1.5 py-4 font-bold',
+        'block size-full translate-y-1.5 py-6 font-bold',
         'grid grid-cols-25 grid-rows-32 gap-[0.5px] overflow-auto bg-transparent',
         className,
       )}
