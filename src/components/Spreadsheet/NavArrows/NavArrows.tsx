@@ -6,15 +6,13 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import { useAtom } from 'jotai';
 import { monthAtom, gridAtom, yearAtom } from '@/store';
-import { useEffect, useState } from 'react';
 import cn from '@/utils/cn';
 import { months } from '@/constants/months';
-import { produce } from 'immer';
 
 function NavArrows() {
   const [month, setMonth] = useAtom(monthAtom);
   const [year, setYear] = useAtom(yearAtom);
-  const [grids, addGrid] = useAtom(gridAtom);
+  const [grid, addGrid] = useAtom(gridAtom);
 
   const leftDisabled = month === 0 && year === 2026;
 
@@ -24,17 +22,22 @@ function NavArrows() {
       setMonth(0);
       setYear(year + 1);
     }
-    addGrid((grid) => {
-      const newGrid = produce(grid, (draft) => {
-        draft.push(
+    if (grid.length <= month * Math.round(year / 2026) + 1)
+      addGrid((grid) => {
+        const newGrid = [
+          ...grid,
           Array.from(
-            { length: year % 4 === 0 && month === 1 ? 29 : months[month].days },
+            {
+              length:
+                year % 4 === 0 && month + 1 === 1
+                  ? 29
+                  : months[month + 1 > 11 ? 0 : month + 1].days,
+            },
             () => Array.from({ length: 24 }, () => ''),
           ),
-        );
+        ];
+        return newGrid;
       });
-      return newGrid;
-    });
   }
 
   function onPrev() {

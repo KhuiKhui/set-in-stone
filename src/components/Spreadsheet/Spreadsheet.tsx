@@ -30,7 +30,7 @@ function Spreadsheet({
         );
       })}
       {Array.from({
-        length: 25 * (year % 4 === 0 && month === 1 ? 29 : months[month].days),
+        length: 25 * (year % 4 !== 0 || month !== 1 ? months[month].days : 29),
       }).map((_: unknown, index: number) => {
         return (
           <div key={'cell' + index}>

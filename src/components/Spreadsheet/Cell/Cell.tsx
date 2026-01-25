@@ -40,9 +40,6 @@ function Cell({ className, row, col, ...inputs }: CellProps) {
           }),
         );
 
-        // setPressed(grid[gridIndex][row][col] !== '');
-        console.log(grid);
-        console.log(gridIndex);
         click.play();
       }}
       className={cn(

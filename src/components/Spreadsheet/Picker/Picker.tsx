@@ -39,7 +39,7 @@ function Picker({
         onClick={() => {
           click.play();
           setColorPressed((colorPressed) => {
-            colorPressed = [false, false, false, false];
+            colorPressed = [false, false, false, false, false, false, false];
             colorPressed[index] = true;
             return colorPressed;
           });
