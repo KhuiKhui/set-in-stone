@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="text-fg bg-bg flex flex-col p-5 antialiased">
+      <body className="text-fg bg-bg flex h-screen w-screen flex-col justify-between p-5 antialiased">
         <Header />
         {children}
       </body>
