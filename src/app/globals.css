@@ -7,14 +7,63 @@
 /* } */
 
 @theme inline {
-  --color-base: #a5a5a5;
-  --color-bright: #cccccc;
-  --color-dim: #7f7f7f;
-  --color-bg: #595959;
-  --color-fg: #f2f2f2;
+  --color-base: #bc7d54;
+  --color-bright: #d38d5b;
+  --color-dim: #7f5141;
+  --color-bg: #36242d;
+  --color-fg: #eab175;
+  --color-dark: #2d1f29;
+  --color-accent: #5b3a31;
+
+  --color-sleep-base: #0e0e0e;
+  --color-sleep-bright: #1b1b1b;
+  --color-sleep-dim: black;
+
+  --color-games-base: #ec2513;
+  --color-games-bright: #ef4e40;
+  --color-games-dim: #cd2011;
+
+  --color-study-base: #00922a;
+  --color-study-bright: #00ad32;
+  --color-study-dim: #007020;
+
+  --color-hangout-base: #1c4587;
+  --color-hangout-bright: #21509d;
+  --color-hangout-dim: #163568;
+
+  --color-exercise-base: #351c75;
+  --color-exercise-bright: #40228d;
+  --color-exercise-dim: #2a165c;
+
+  --color-eat-base: #b45f06;
+  --color-eat-bright: #cf6d07;
+  --color-eat-dim: #995105;
+
+  --color-others-base: #741b47;
+  --color-others-bright: #8d2156;
+  --color-others-dim: #5b1538;
 
   --font-base: 'Schoolbell', cursive;
   --default-font-family: var(--font-base);
+
+  --animate-shake: shake 0.5s ease;
+  @keyframes shake {
+    0% {
+      transform: rotate(4deg);
+    }
+    20% {
+      transform: rotate(0deg);
+    }
+    40% {
+      transform: rotate(-4deg);
+    }
+    60% {
+      transform: rotate(3deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,9 +71,4 @@
     --background: #595959;
     --foreground: #f2f2f2;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
 }
