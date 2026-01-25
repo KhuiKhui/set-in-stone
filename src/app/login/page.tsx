@@ -3,18 +3,67 @@ import Button from '@/components/Button/Button';
 import Form from 'next/form';
 import Input from '@/components/Input/Input';
 import { handleLogin } from '@/utils/auth';
+import { isInSession } from '@/utils/session';
 import { useState } from 'react';
 import cn from '@/utils/cn';
+import { useSetAtom } from 'jotai';
+import { gridAtom } from '@/store';
+import { produce } from 'immer';
+import { generateSpreadsheet } from '@/utils/spreadsheet';
+import { months } from '@/constants/months';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const setGrid = useSetAtom(gridAtom);
 
   const disabled = email === '' || password === '';
+
+  async function authInit() {
+    const inSession = await isInSession();
+    if (inSession) {
+      const spreadsheetRecords = await generateSpreadsheet();
+      console.log(spreadsheetRecords);
+      setGrid(
+        produce((draft: string[][][]) => {
+          for (let i = 0; i < spreadsheetRecords.length; i++) {
+            const c = spreadsheetRecords[i].x;
+            const r = spreadsheetRecords[i].y;
+            const index = spreadsheetRecords[i].index;
+            const value = spreadsheetRecords[i].value;
+            let month = 0;
+            let year = 2026;
+            while (index > draft.length - 1) {
+              draft.push(
+                Array.from(
+                  {
+                    length:
+                      year % 4 === 0 && month + 1 === 1
+                        ? 29
+                        : months[month + 1 > 11 ? 0 : month + 1].days,
+                  },
+                  () => Array.from({ length: 24 }, () => ''),
+                ),
+              );
+              month += 1;
+              if (month > 11) {
+                year += 1;
+                month = 0;
+              }
+            }
+            draft[index][r][c] = value;
+          }
+        }),
+      );
+    }
+  }
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-8 text-lg text-white">
       <Form
-        action={handleLogin}
+        action={(data: FormData) => {
+          handleLogin(data);
+          authInit();
+        }}
         className="flex flex-col items-center justify-center gap-8"
       >
         <Input

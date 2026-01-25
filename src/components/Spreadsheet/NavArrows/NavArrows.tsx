@@ -38,8 +38,6 @@ function NavArrows() {
         ];
         return newGrid;
       });
-
-    console.log(grid);
   }
 
   function onPrev() {

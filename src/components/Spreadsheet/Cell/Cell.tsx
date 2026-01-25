@@ -10,8 +10,6 @@ import {
   yearAtom,
 } from '@/store';
 import { produce } from 'immer';
-import prisma from '@/lib/prisma';
-import saveSpreadsheet from '@/utils/save-spreadsheet';
 
 interface CellProps extends React.ComponentPropsWithRef<'button'> {
   row: number;
@@ -43,7 +41,6 @@ function Cell({ className, row, col, ...inputs }: CellProps) {
         );
 
         click.play();
-        saveSpreadsheet(grid.length, col, row, grid[gridIndex][row][col]);
       }}
       className={cn(
         'bg-dim size-full rounded-lg',
