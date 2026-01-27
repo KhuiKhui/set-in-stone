@@ -21,7 +21,6 @@ export async function handleLogin(data: FormData) {
     const authenticated = bcrypt.compareSync(password, user.password);
     if (authenticated) {
       await createSession(user.id);
-      generateSpreadsheet();
       revalidatePath('/');
       redirect('/');
     }
@@ -47,7 +46,6 @@ export async function handleSignup(data: FormData) {
     });
 
     await createSession(newUser.id);
-    generateSpreadsheet();
     redirect('/');
   }
 }

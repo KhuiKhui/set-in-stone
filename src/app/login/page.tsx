@@ -23,7 +23,6 @@ export default function Login() {
     const inSession = await isInSession();
     if (inSession) {
       const spreadsheetRecords = await generateSpreadsheet();
-      console.log(spreadsheetRecords);
       setGrid(
         produce((draft: string[][][]) => {
           for (let i = 0; i < spreadsheetRecords.length; i++) {

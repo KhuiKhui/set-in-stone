@@ -4,6 +4,7 @@ import Cell from './Cell/Cell';
 import { useAtomValue } from 'jotai';
 import { monthAtom, yearAtom } from '@/store';
 import { months } from '@/constants/months';
+import { getDays } from '@/utils/days';
 
 function Spreadsheet({
   className,
@@ -25,18 +26,19 @@ function Spreadsheet({
         return (
           <div
             key={'hours' + index}
-            className="text-center"
+            className="text-center text-sm"
           >{`${index}:00`}</div>
         );
       })}
       {Array.from({
-        length: 25 * (year % 4 !== 0 || month !== 1 ? months[month].days : 29),
+        length: 25 * getDays(month, year),
       }).map((_: unknown, index: number) => {
         return (
           <div key={'cell' + index}>
             {index % 25 == 0 ? (
               <div
                 key={`${index} date`}
+                className="text-center text-sm"
               >{`${index / 25 + 1}/${months[month].num}/${year % 100}`}</div>
             ) : (
               <Cell row={Math.floor(index / 25)} col={(index % 25) - 1} />
