@@ -1,13 +1,15 @@
 'use client';
 import Form from 'next/form';
 import { handleLogout } from '@/utils/auth';
+import { redirect } from 'next/navigation';
 
 function Logout() {
   return (
     <Form
       action={() => {
-        handleLogout();
         localStorage.clear();
+        handleLogout();
+        redirect('/');
       }}
     >
       <button

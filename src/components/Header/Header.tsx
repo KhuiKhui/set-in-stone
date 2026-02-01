@@ -1,8 +1,6 @@
 import Link from 'next/link';
 import HeaderButton from './HeaderButton/HeaderButton';
 import { getSessionUser, isInSession } from '@/utils/session';
-import Form from 'next/form';
-import { handleLogout } from '@/utils/auth';
 import Logout from './Logout/Logout';
 
 async function Header() {
