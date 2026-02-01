@@ -70,7 +70,6 @@ export default function Login() {
         action={(data: FormData) => {
           handleLogin(data);
           authInit();
-
           redirect('/');
         }}
         className="flex flex-col items-center justify-center gap-8"

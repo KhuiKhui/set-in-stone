@@ -11,13 +11,26 @@ import {
   yearAtom,
 } from '@/store';
 import { produce } from 'immer';
+import { Dispatch } from 'react';
+import { SetStateAction } from 'react';
 
 interface CellProps extends React.ComponentPropsWithRef<'button'> {
   row: number;
   col: number;
+  draggingCoords: { row: number; col: number; value: string } | null;
+  setClickable: Dispatch<SetStateAction<boolean>>;
+  isClickable: boolean;
 }
 
-function Cell({ className, row, col, ...inputs }: CellProps) {
+function Cell({
+  className,
+  row,
+  col,
+  draggingCoords,
+  setClickable,
+  isClickable,
+  ...inputs
+}: CellProps) {
   const [grid, setGrid] = useAtom<string[][][]>(gridAtom);
   const setSave = useSetAtom(saveAtom);
   const colorsPressed = useAtomValue(colorPressedAtom);
@@ -35,14 +48,31 @@ function Cell({ className, row, col, ...inputs }: CellProps) {
   return (
     <button
       onClick={() => {
-        setGrid(
-          produce((draft: string[][][]) => {
-            draft[gridIndex][row][col] = isPressed ? '' : color;
-          }),
-        );
-        setSave(true);
+        if (isClickable) {
+          setGrid(
+            produce((draft: string[][][]) => {
+              draft[gridIndex][row][col] = isPressed ? '' : color;
+            }),
+          );
+          setSave(true);
 
-        click.play();
+          click.play();
+        }
+      }}
+      onMouseMove={() => {
+        if (draggingCoords?.row === row) {
+          setClickable(false);
+          setGrid(
+            produce((draft: string[][][]) => {
+              if (draggingCoords.value === '') {
+                draft[gridIndex][row][col] = color;
+              } else {
+                draft[gridIndex][row][col] = '';
+              }
+            }),
+          );
+          setSave(true);
+        }
       }}
       className={cn(
         'bg-dim size-full rounded-lg',
