@@ -83,6 +83,7 @@ export default function Login() {
           type="text"
           autoComplete="off"
           placeholder="Email"
+          autoFocus
         />
         <Input
           onChange={(e) => {

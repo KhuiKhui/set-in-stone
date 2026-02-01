@@ -18,8 +18,14 @@ function Spreadsheet({
   useEffect(() => {
     if (localStorage.getItem('spreadsheet')) {
       setGrid(JSON.parse(localStorage.getItem('spreadsheet')!));
+    } else {
+      console.log('DEL');
+      setGrid([
+        Array.from({ length: 31 }, () => Array.from({ length: 24 }, () => '')),
+      ]);
     }
   }, []);
+
   return (
     <div
       className={cn(

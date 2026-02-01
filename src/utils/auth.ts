@@ -47,5 +47,4 @@ export async function handleSignup(data: FormData) {
 export async function handleLogout() {
   const cookieStore = await cookies();
   cookieStore.delete('session');
-  localStorage.removeItem('spreadsheet');
 }

@@ -15,11 +15,6 @@ export async function createSession(userId: string) {
   });
 }
 
-export async function deleteSession() {
-  const cookieStore = await cookies();
-  cookieStore.delete('session');
-}
-
 export async function isInSession() {
   const cookieStore = await cookies();
   return cookieStore.get('session')?.value ?? false;

@@ -31,6 +31,7 @@ export default function Signup() {
           name="email"
           type="text"
           placeholder="Email"
+          autoFocus
         />
         <Input
           onChange={(e) => {
