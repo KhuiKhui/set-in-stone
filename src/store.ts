@@ -1,5 +1,7 @@
 import { atom } from 'jotai';
 
+export const saveAtom = atom(false);
+
 export const userAtom = atom({
   email: '',
   password: '',

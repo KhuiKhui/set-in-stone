@@ -7,7 +7,7 @@ import {
 import { useAtom } from 'jotai';
 import { monthAtom, gridAtom, yearAtom } from '@/store';
 import cn from '@/utils/cn';
-import { months } from '@/constants/months';
+import { getDays } from '@/utils/days';
 
 function NavArrows() {
   const [month, setMonth] = useAtom(monthAtom);
@@ -17,21 +17,20 @@ function NavArrows() {
   const leftDisabled = month === 0 && year === 2026;
 
   function onNext() {
-    if (month < 11) setMonth(month + 1);
+    let newMonth = month + 1;
+    if (month < 11) setMonth(newMonth);
     else {
+      newMonth = 0;
       setMonth(0);
       setYear(year + 1);
     }
-    if (grid.length <= month * Math.round(year / 2026) + 1)
+    if (grid.length <= month + (year - 2026 + 1) * 12 + 1)
       addGrid((grid) => {
         const newGrid = [
           ...grid,
           Array.from(
             {
-              length:
-                year % 4 === 0 && month + 1 === 1
-                  ? 29
-                  : months[month + 1 > 11 ? 0 : month + 1].days,
+              length: getDays(newMonth, year),
             },
             () => Array.from({ length: 24 }, () => ''),
           ),

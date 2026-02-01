@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import HeaderButton from './HeaderButton/HeaderButton';
-import { deleteSession, getSessionUser, isInSession } from '@/utils/session';
+import { getSessionUser, isInSession } from '@/utils/session';
+import Form from 'next/form';
+import { handleLogout } from '@/utils/auth';
+import Logout from './Logout/Logout';
 
 async function Header() {
   const inSession = await isInSession();
@@ -36,14 +39,7 @@ async function Header() {
           <div className="hover:text-bright cursor-default transition-transform will-change-transform hover:scale-105">
             {getSessionUser()}
           </div>
-          <form action={deleteSession}>
-            <button
-              type="submit"
-              className="hover:text-bright transition-transform will-change-transform hover:scale-105"
-            >
-              Logout
-            </button>
-          </form>
+          <Logout />
         </div>
       )}
     </div>
