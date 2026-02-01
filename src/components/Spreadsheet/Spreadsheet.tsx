@@ -18,6 +18,7 @@ function Spreadsheet({
   const [draggingCoords, setDraggingCoords] = useState<{
     row: number;
     col: number;
+    value: string;
   } | null>(null);
   const [isClickable, setClickable] = useState(true);
 
