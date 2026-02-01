@@ -1,6 +1,6 @@
 'use client';
 
-import { colorPickerAtom, colorPressedAtom } from '@/store';
+import { colorPickerAtom, colorPressedAtom } from '@/stores/moodStore';
 import { useAtom } from 'jotai';
 import cn from '@/utils/cn';
 import { click } from '@/utils/audio';
@@ -11,7 +11,7 @@ interface PickerProps extends React.ComponentPropsWithRef<'div'> {
 }
 
 function Picker({
-  category = 'study',
+  category = 'normal',
   index = 0,
   className,
   ...inputs
@@ -23,13 +23,11 @@ function Picker({
       className={cn(
         'rounded-full',
         {
-          'bg-sleep-dim': color[index] === 'sleep',
-          'bg-games-dim': color[index] === 'games',
-          'bg-study-dim': color[index] === 'study',
-          'bg-hangout-dim': color[index] === 'hangout',
-          'bg-exercise-dim': color[index] === 'exercise',
-          'bg-eat-dim': color[index] === 'eat',
-          'bg-others-dim': color[index] === 'others',
+          'bg-very-negative-dim': color[index] === 'very negative',
+          'bg-negative-dim': color[index] === 'negative',
+          'bg-normal-dim': color[index] === 'normal',
+          'bg-positive-dim': color[index] === 'positive',
+          'bg-very-positive-dim': color[index] === 'very positive',
         },
         className,
       )}
@@ -50,19 +48,19 @@ function Picker({
         }}
         className={cn(
           'block size-full min-w-24 -translate-y-1.5 cursor-pointer rounded-full px-4 py-2 font-bold',
-          'size-full transition-transform ease-in-out',
+          'text-dark size-full transition-transform ease-in-out',
           {
             '-translate-y-0.5': colorPressed[index],
             'hover:-translate-y-2': !colorPressed[index],
-            'bg-sleep-base hover:bg-sleep-bright': color[index] === 'sleep',
-            'bg-games-base hover:bg-games-bright': color[index] === 'games',
-            'bg-study-base hover:bg-study-bright': color[index] === 'study',
-            'bg-hangout-base hover:bg-hangout-bright':
-              color[index] === 'hangout',
-            'bg-exercise-base hover:bg-exercise-bright':
-              color[index] === 'exercise',
-            'bg-eat-base hover:bg-eat-bright': color[index] === 'eat',
-            'bg-others-base hover:bg-others-bright': color[index] === 'others',
+            'bg-very-negative-base hover:bg-very-negative-bright':
+              color[index] === 'very negative',
+            'bg-negative-base hover:bg-negative-bright':
+              color[index] === 'negative',
+            'bg-normal-base hover:bg-normal-bright': color[index] === 'normal',
+            'bg-positive-base hover:bg-positive-bright':
+              color[index] === 'positive',
+            'bg-very-positive-base hover:bg-very-positive-bright':
+              color[index] === 'very positive',
           },
         )}
       >

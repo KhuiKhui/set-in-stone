@@ -1,6 +1,6 @@
-import NavArrows from '@/components/Spreadsheet/NavArrows';
-import PickerTray from '@/components/Spreadsheet/PickerTray';
-import SaveButton from '@/components/Spreadsheet/SaveButton';
+import NavArrows from '@/components/Mood/NavArrows';
+import PickerTray from './PickerTray';
+import SaveButton from '@/components/Mood/SaveButton';
 import { isInSession } from '@/utils/session';
 
 async function Toolbar() {

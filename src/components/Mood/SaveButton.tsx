@@ -1,6 +1,6 @@
 'use client';
 import Button from '@/components/Button/Button';
-import { gridAtom, saveAtom } from '@/store';
+import { gridAtom, saveAtom } from '@/stores/moodStore';
 import cn from '@/utils/cn';
 import { saveSpreadsheet } from '@/utils/spreadsheet';
 import { useAtom, useAtomValue } from 'jotai';

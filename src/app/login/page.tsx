@@ -7,7 +7,7 @@ import { isInSession } from '@/utils/session';
 import { useEffect, useState } from 'react';
 import cn from '@/utils/cn';
 import { useSetAtom } from 'jotai';
-import { gridAtom } from '@/store';
+import { gridAtom } from '@/stores/spreadsheetStore';
 import { produce } from 'immer';
 import { generateSpreadsheet } from '@/utils/spreadsheet';
 import { getDays } from '@/utils/days';

@@ -5,7 +5,7 @@ import {
   faHandPointLeft,
 } from '@fortawesome/free-regular-svg-icons';
 import { useAtom } from 'jotai';
-import { monthAtom, gridAtom, yearAtom } from '@/store';
+import { monthAtom, gridAtom, yearAtom } from '@/stores/moodStore';
 import cn from '@/utils/cn';
 import { getDays } from '@/utils/days';
 
