@@ -26,8 +26,6 @@ function Cell({ className, row, col, ...inputs }: CellProps) {
   const year = useAtomValue(yearAtom);
   const gridIndex = month + (year - 2026) * 12;
 
-  console.log(gridIndex);
-
   const isPressed = grid[gridIndex][row][col] !== '';
 
   let color: string = '';

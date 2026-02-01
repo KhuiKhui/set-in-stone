@@ -1,10 +1,11 @@
 'use client';
 import cn from '@/utils/cn';
 import Cell from './Cell/Cell';
-import { useAtomValue } from 'jotai';
-import { monthAtom, yearAtom } from '@/store';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { gridAtom, monthAtom, yearAtom } from '@/store';
 import { months } from '@/constants/months';
 import { getDays } from '@/utils/days';
+import { useEffect } from 'react';
 
 function Spreadsheet({
   className,
@@ -12,6 +13,13 @@ function Spreadsheet({
 }: React.ComponentPropsWithRef<'div'>) {
   const month = useAtomValue(monthAtom);
   const year = useAtomValue(yearAtom);
+  const setGrid = useSetAtom(gridAtom);
+
+  useEffect(() => {
+    if (localStorage.getItem('spreadsheet')) {
+      setGrid(JSON.parse(localStorage.getItem('spreadsheet')!));
+    }
+  }, []);
   return (
     <div
       className={cn(

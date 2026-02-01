@@ -4,13 +4,14 @@ import Form from 'next/form';
 import Input from '@/components/Input/Input';
 import { handleLogin } from '@/utils/auth';
 import { isInSession } from '@/utils/session';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import cn from '@/utils/cn';
 import { useSetAtom } from 'jotai';
 import { gridAtom } from '@/store';
 import { produce } from 'immer';
 import { generateSpreadsheet } from '@/utils/spreadsheet';
-import { months } from '@/constants/months';
+import { getDays } from '@/utils/days';
+import { redirect } from 'next/navigation';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -36,10 +37,7 @@ export default function Login() {
               draft.push(
                 Array.from(
                   {
-                    length:
-                      year % 4 === 0 && month + 1 === 1
-                        ? 29
-                        : months[month + 1 > 11 ? 0 : month + 1].days,
+                    length: getDays(month + 1, year),
                   },
                   () => Array.from({ length: 24 }, () => ''),
                 ),
@@ -52,16 +50,28 @@ export default function Login() {
             }
             draft[index][r][c] = value;
           }
+          localStorage.setItem('spreadsheet', JSON.stringify(draft));
         }),
       );
     }
   }
+
+  useEffect(() => {
+    async function regenGrid() {
+      await authInit();
+    }
+
+    regenGrid();
+  }, []);
+
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-8 text-lg text-white">
       <Form
         action={(data: FormData) => {
           handleLogin(data);
           authInit();
+
+          redirect('/');
         }}
         className="flex flex-col items-center justify-center gap-8"
       >
