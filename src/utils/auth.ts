@@ -1,11 +1,8 @@
 'use server';
 import prisma from '@/lib/prisma';
 import { createSession } from './session';
-import { redirect } from 'next/navigation';
-import { revalidatePath } from 'next/cache';
 import bcrypt from 'bcrypt';
 import { cookies } from 'next/headers';
-import { generateSpreadsheet } from './spreadsheet';
 
 export async function handleLogin(data: FormData) {
   const email = data.get('email') as string;
@@ -21,9 +18,6 @@ export async function handleLogin(data: FormData) {
     const authenticated = bcrypt.compareSync(password, user.password);
     if (authenticated) {
       await createSession(user.id);
-      generateSpreadsheet();
-      revalidatePath('/');
-      redirect('/');
     }
   }
 }
@@ -47,8 +41,6 @@ export async function handleSignup(data: FormData) {
     });
 
     await createSession(newUser.id);
-    generateSpreadsheet();
-    redirect('/');
   }
 }
 

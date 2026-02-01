@@ -1,12 +1,13 @@
 'use client';
 import cn from '@/utils/cn';
 import { click } from '@/utils/audio';
-import { useAtom, useAtomValue } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import {
   colorPickerAtom,
   colorPressedAtom,
   gridAtom,
   monthAtom,
+  saveAtom,
   yearAtom,
 } from '@/store';
 import { produce } from 'immer';
@@ -18,11 +19,12 @@ interface CellProps extends React.ComponentPropsWithRef<'button'> {
 
 function Cell({ className, row, col, ...inputs }: CellProps) {
   const [grid, setGrid] = useAtom<string[][][]>(gridAtom);
+  const setSave = useSetAtom(saveAtom);
   const colorsPressed = useAtomValue(colorPressedAtom);
   const colors = useAtomValue(colorPickerAtom);
   const month = useAtomValue(monthAtom);
   const year = useAtomValue(yearAtom);
-  const gridIndex = month * Math.round(year / 2026);
+  const gridIndex = month + (year - 2026) * 12;
 
   const isPressed = grid[gridIndex][row][col] !== '';
 
@@ -30,7 +32,6 @@ function Cell({ className, row, col, ...inputs }: CellProps) {
   for (let i = 0; i < colorsPressed.length; i++) {
     if (colorsPressed[i]) color = colors[i];
   }
-
   return (
     <button
       onClick={() => {
@@ -39,6 +40,7 @@ function Cell({ className, row, col, ...inputs }: CellProps) {
             draft[gridIndex][row][col] = isPressed ? '' : color;
           }),
         );
+        setSave(true);
 
         click.play();
       }}

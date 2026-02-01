@@ -5,6 +5,7 @@ import Input from '@/components/Input/Input';
 import { handleSignup } from '@/utils/auth';
 import { useState } from 'react';
 import cn from '@/utils/cn';
+import { redirect } from 'next/navigation';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -17,7 +18,10 @@ export default function Signup() {
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-8 text-lg text-white">
       <Form
-        action={handleSignup}
+        action={(data: FormData) => {
+          handleSignup(data);
+          redirect('/');
+        }}
         className="flex flex-col items-center justify-center gap-8"
       >
         <Input
@@ -27,6 +31,7 @@ export default function Signup() {
           name="email"
           type="text"
           placeholder="Email"
+          autoFocus
         />
         <Input
           onChange={(e) => {
