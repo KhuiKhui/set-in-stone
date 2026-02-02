@@ -18,9 +18,20 @@ model User {
   email        String        @unique
   password     String
   spreadsheets Spreadsheet[]
+  moodTables   MoodTable[]
 }
 
 model Spreadsheet {
+  id     String @id @default(uuid())
+  x      Int
+  y      Int
+  index  Int
+  value  String
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+}
+
+model MoodTable {
   id     String @id @default(uuid())
   x      Int
   y      Int

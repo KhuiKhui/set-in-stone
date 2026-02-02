@@ -9,7 +9,7 @@ import {
   monthAtom,
   saveAtom,
   yearAtom,
-} from '@/store';
+} from '@/stores/spreadsheetStore';
 import { produce } from 'immer';
 import { Dispatch } from 'react';
 import { SetStateAction } from 'react';
