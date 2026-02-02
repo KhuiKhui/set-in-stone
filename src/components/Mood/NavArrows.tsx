@@ -5,34 +5,26 @@ import {
   faHandPointLeft,
 } from '@fortawesome/free-regular-svg-icons';
 import { useAtom } from 'jotai';
-import { monthAtom, gridAtom, yearAtom } from '@/stores/moodStore';
+import { gridAtom, yearAtom } from '@/stores/moodStore';
 import cn from '@/utils/cn';
-import { getDays } from '@/utils/days';
 
 function NavArrows() {
-  const [month, setMonth] = useAtom(monthAtom);
   const [year, setYear] = useAtom(yearAtom);
   const [grid, addGrid] = useAtom(gridAtom);
 
-  const leftDisabled = month === 0 && year === 2026;
+  const leftDisabled = year === 2026;
 
   function onNext() {
-    let newMonth = month + 1;
-    if (month < 11) setMonth(newMonth);
-    else {
-      newMonth = 0;
-      setMonth(0);
-      setYear(year + 1);
-    }
-    if (grid.length <= month + (year - 2026 + 1) * 12 + 1)
+    setYear(year + 1);
+    if (grid.length <= year - 2026 + 1)
       addGrid((grid) => {
         const newGrid = [
           ...grid,
           Array.from(
             {
-              length: getDays(newMonth, year),
+              length: 31,
             },
-            () => Array.from({ length: 24 }, () => ''),
+            () => Array.from({ length: 12 }, () => ''),
           ),
         ];
         return newGrid;
@@ -40,11 +32,7 @@ function NavArrows() {
   }
 
   function onPrev() {
-    if (month > 0) setMonth(month - 1);
-    else {
-      setMonth(11);
-      setYear(year - 1);
-    }
+    setYear(year - 1);
   }
 
   return (

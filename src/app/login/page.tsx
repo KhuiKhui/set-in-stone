@@ -7,16 +7,19 @@ import { isInSession } from '@/utils/session';
 import { useEffect, useState } from 'react';
 import cn from '@/utils/cn';
 import { useSetAtom } from 'jotai';
-import { gridAtom } from '@/stores/spreadsheetStore';
+import { gridAtom as spreadsheetAtom } from '@/stores/spreadsheetStore';
+import { gridAtom as moodAtom } from '@/stores/moodStore';
 import { produce } from 'immer';
 import { generateSpreadsheet } from '@/utils/spreadsheet';
 import { getDays } from '@/utils/days';
 import { redirect } from 'next/navigation';
+import { generateMood } from '@/utils/mood';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const setGrid = useSetAtom(gridAtom);
+  const setSpreadsheet = useSetAtom(spreadsheetAtom);
+  const setMood = useSetAtom(moodAtom);
 
   const disabled = email === '' || password === '';
 
@@ -24,7 +27,7 @@ export default function Login() {
     const inSession = await isInSession();
     if (inSession) {
       const spreadsheetRecords = await generateSpreadsheet();
-      setGrid(
+      setSpreadsheet(
         produce((draft: string[][][]) => {
           for (let i = 0; i < spreadsheetRecords.length; i++) {
             const c = spreadsheetRecords[i].x;
@@ -51,6 +54,30 @@ export default function Login() {
             draft[index][r][c] = value;
           }
           localStorage.setItem('spreadsheet', JSON.stringify(draft));
+        }),
+      );
+
+      const moodRecords = await generateMood();
+      setMood(
+        produce((draft: string[][][]) => {
+          for (let i = 0; i < moodRecords.length; i++) {
+            const c = moodRecords[i].x;
+            const r = moodRecords[i].y;
+            const index = moodRecords[i].index;
+            const value = moodRecords[i].value;
+            while (index > draft.length - 1) {
+              draft.push(
+                Array.from(
+                  {
+                    length: 31,
+                  },
+                  () => Array.from({ length: 12 }, () => ''),
+                ),
+              );
+            }
+            draft[index][r][c] = value;
+          }
+          localStorage.setItem('mood', JSON.stringify(draft));
         }),
       );
     }

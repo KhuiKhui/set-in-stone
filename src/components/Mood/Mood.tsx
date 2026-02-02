@@ -19,8 +19,8 @@ function Mood({ className, ...inputs }: React.ComponentPropsWithRef<'div'>) {
   const [isClickable, setClickable] = useState(true);
 
   useEffect(() => {
-    if (localStorage.getItem('spreadsheet')) {
-      setGrid(JSON.parse(localStorage.getItem('spreadsheet')!));
+    if (localStorage.getItem('mood')) {
+      setGrid(JSON.parse(localStorage.getItem('mood')!));
     } else {
       setGrid([
         Array.from({ length: 31 }, () => Array.from({ length: 12 }, () => '')),
@@ -61,7 +61,7 @@ function Mood({ className, ...inputs }: React.ComponentPropsWithRef<'div'>) {
               setDraggingCoords({
                 row: row,
                 col: col,
-                value: grid[month + (year - 2026) * 12][row][col],
+                value: grid[year - 2026][row][col],
               });
               setClickable(true);
             }}

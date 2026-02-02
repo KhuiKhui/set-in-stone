@@ -2,9 +2,9 @@
 import Button from '@/components/Button/Button';
 import { gridAtom, saveAtom } from '@/stores/moodStore';
 import cn from '@/utils/cn';
-import { saveSpreadsheet } from '@/utils/spreadsheet';
 import { useAtom, useAtomValue } from 'jotai';
 import { click } from '@/utils/audio';
+import { saveMood } from '@/utils/mood';
 
 function SaveButton({ ...inputs }: React.ComponentPropsWithRef<'button'>) {
   const grid = useAtomValue(gridAtom);
@@ -22,9 +22,9 @@ function SaveButton({ ...inputs }: React.ComponentPropsWithRef<'button'>) {
         !save
           ? () => {}
           : () => {
-              saveSpreadsheet(grid);
+              saveMood(grid);
               setSave(false);
-              localStorage.setItem('spreadsheet', JSON.stringify(grid));
+              localStorage.setItem('mood', JSON.stringify(grid));
               click.play();
             }
       }

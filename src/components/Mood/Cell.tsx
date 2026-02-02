@@ -37,7 +37,6 @@ function Cell({
   const year = useAtomValue(yearAtom);
   const gridIndex = year - 2026;
 
-  console.log(row, col);
   const isPressed = grid[gridIndex][row][col] !== '';
 
   let color: string = '';
@@ -84,19 +83,14 @@ function Cell({
     >
       <span
         className={cn(
-          'bg-base border-dark block size-full -translate-y-1.5 cursor-pointer rounded-lg border-x border-t-2 p-4 font-bold',
+          'bg-bright border-dark block size-full -translate-y-1.5 cursor-pointer rounded-lg border-x border-t-2 p-4 font-bold',
           'size-full transition-transform ease-in-out',
           {
             // FUNCTIONS!!!!
-            'bg-bright':
-              row > -(1 / 36) * col ** 2 + (2 / 3) * col + 12 ||
-              row < (1 / 36) * col ** 2 - (2 / 3) * col + 9,
-            'bg-dim':
-              row > -(1 / 36) * col ** 2 + (2 / 3) * col + 18 ||
-              row < (1 / 36) * col ** 2 - (2 / 3) * col + 7,
-            'bg-dark':
-              row > -(1 / 36) * col ** 2 + (2 / 3) * col + 25 ||
-              row < (1 / 36) * col ** 2 - (2 / 3) * col + 3,
+            'bg-fg': (col - 12) ** 2 + (row - 1) ** 2 < 20,
+            'bg-base': row - 4 > Math.abs(col - 3) * 3,
+            'bg-dim': row - 10 > Math.abs(col - 8) * 2,
+            'bg-dark': row - 20 > Math.abs(col - 1) * 4,
           },
           {
             '-translate-y-1': isPressed,
