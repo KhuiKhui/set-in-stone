@@ -1,4 +1,4 @@
-import Picker from '../Picker/Picker';
+import Picker from './Picker';
 
 function PickerTray() {
   return (

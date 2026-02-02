@@ -43,6 +43,26 @@
   --color-others-bright: #8d2156;
   --color-others-dim: #5b1538;
 
+  --color-very-negative-base: #e06666;
+  --color-very-negative-bright: #e47878;
+  --color-very-negative-dim: #dd5858;
+
+  --color-negative-base: #f6b26b;
+  --color-negative-bright: #f7ba7b;
+  --color-negative-dim: #f5a654;
+
+  --color-normal-base: #ffff00;
+  --color-normal-bright: #ffff92;
+  --color-normal-dim: #ecec00;
+
+  --color-positive-base: #6aa84f;
+  --color-positive-bright: #7ab460;
+  --color-positive-dim: #619948;
+
+  --color-very-positive-base: #45818e;
+  --color-very-positive-bright: #4d909e;
+  --color-very-positive-dim: #3e737f;
+
   --font-base: 'Schoolbell', cursive;
   --default-font-family: var(--font-base);
 

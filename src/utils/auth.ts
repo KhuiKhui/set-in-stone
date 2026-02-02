@@ -3,7 +3,6 @@ import prisma from '@/lib/prisma';
 import { createSession } from './session';
 import bcrypt from 'bcrypt';
 import { cookies } from 'next/headers';
-import { refresh } from 'next/cache';
 
 export async function handleLogin(data: FormData) {
   const email = data.get('email') as string;
